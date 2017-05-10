@@ -1,0 +1,8 @@
+c:\Users\Owner\Documents\Code\C#\week1\HW1\bin\Debug\netcoreapp1.1\HW1.deps.json
+c:\Users\Owner\Documents\Code\C#\week1\HW1\bin\Debug\netcoreapp1.1\HW1.runtimeconfig.json
+c:\Users\Owner\Documents\Code\C#\week1\HW1\bin\Debug\netcoreapp1.1\HW1.runtimeconfig.dev.json
+c:\Users\Owner\Documents\Code\C#\week1\HW1\bin\Debug\netcoreapp1.1\HW1.dll
+c:\Users\Owner\Documents\Code\C#\week1\HW1\bin\Debug\netcoreapp1.1\HW1.pdb
+c:\Users\Owner\Documents\Code\C#\week1\HW1\obj\Debug\netcoreapp1.1\HW1.AssemblyInfo.cs
+c:\Users\Owner\Documents\Code\C#\week1\HW1\obj\Debug\netcoreapp1.1\HW1.dll
+c:\Users\Owner\Documents\Code\C#\week1\HW1\obj\Debug\netcoreapp1.1\HW1.pdb
