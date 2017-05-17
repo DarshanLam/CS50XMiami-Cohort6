@@ -48,7 +48,7 @@ namespace BigBank
             int count = 0;
             foreach (IndividualAccount myAccount in this.SavingsList) {
                 if (myAccount.AccountNumber == index)
-                   //this.SavingsList[count].Remove;
+                   //33eeehis.SavingsList[count].Remove;
                 count++;
             }
         }
