@@ -37,6 +37,7 @@ namespace BigBank
             this.CheckingIndex = 8888000;
             this.MutualFundIndex = 9999000;
         }
+
         public void AddSavingsAccount() {
             this.SavingsIndex++;
             IndividualAccount Acct1 = new IndividualAccount();
@@ -45,26 +46,18 @@ namespace BigBank
             this.SavingsList.Add(Acct1);
         }
         public void DeleteSavingsAccount(int index) {
-            int count = 0;
-            foreach (IndividualAccount myAccount in this.SavingsList) {
-                if (myAccount.AccountNumber == index)
-                   //33eeehis.SavingsList[count].Remove;
-                count++;
+            int count = -1;
+            int indexcount = -1;
+            if (this.SavingsList.Count != 0) {
+                foreach (IndividualAccount myAccount in this.SavingsList) {
+                    count++;
+                    if (myAccount.AccountNumber == index)
+                        indexcount = count;
+                }
+                if (indexcount >=0 ) {
+                    this.SavingsList.RemoveAt(indexcount);
+                }
             }
-        }
-         public void AddCheckingAccount() {
-            this.CheckingIndex++;
-            IndividualAccount Acct1 = new IndividualAccount();
-            Acct1.AccountBallance = 0;
-            Acct1.AccountNumber = this.CheckingIndex;
-            this.CheckingList.Add(Acct1);
-        }
-        public void AddMutualFundAccount() {
-            this.MutualFundIndex++;
-            IndividualAccount Acct1 = new IndividualAccount();
-            Acct1.AccountBallance = 0;
-            Acct1.AccountNumber = this.MutualFundIndex;
-            this.MutualFundList.Add(Acct1);
         }
         public decimal SavingsBallance() {
             decimal total = 0;
@@ -73,6 +66,28 @@ namespace BigBank
             }
             return total;
         }
+
+         public void AddCheckingAccount() {
+            this.CheckingIndex++;
+            IndividualAccount Acct1 = new IndividualAccount();
+            Acct1.AccountBallance = 0;
+            Acct1.AccountNumber = this.CheckingIndex;
+            this.CheckingList.Add(Acct1);
+        }
+        public void DeleteCheckingAccount(int index) {
+            int count = -1;
+            int indexcount = -1;
+            if (this.CheckingList.Count != 0) {
+                foreach (IndividualAccount myAccount in this.CheckingList) {
+                    count++;
+                    if (myAccount.AccountNumber == index)
+                        indexcount = count;
+                }
+                if (indexcount >=0 ) {
+                    this.CheckingList.RemoveAt(indexcount);
+                }
+            }
+        }  
         public decimal ChackingBallance() {
             decimal total = 0;
             foreach (IndividualAccount myAccount in this.CheckingList) {
@@ -80,6 +95,28 @@ namespace BigBank
             }
             return total;
         }
+
+        public void AddMutualFundAccount() {
+            this.MutualFundIndex++;
+            IndividualAccount Acct1 = new IndividualAccount();
+            Acct1.AccountBallance = 0;
+            Acct1.AccountNumber = this.MutualFundIndex;
+            this.MutualFundList.Add(Acct1);
+        }
+        public void DeleteMutualFundAccount(int index) {
+            int count = -1;
+            int indexcount = -1;
+            if (this.MutualFundList.Count != 0) {
+                foreach (IndividualAccount myAccount in this.MutualFundList) {
+                    count++;
+                    if (myAccount.AccountNumber == index)
+                        indexcount = count;
+                }
+                if (indexcount >=0 ) {
+                    this.MutualFundList.RemoveAt(indexcount);
+                }
+            }
+        }  
         public decimal MutualFundBallance() {
             decimal total = 0;
             foreach (IndividualAccount myAccount in this.MutualFundList) {
@@ -153,7 +190,30 @@ namespace BigBank
                                 }
                             }                    
                             break;
-                    case 2: //Make a deposit
+                    case 2: //Delete an Account
+                            AccountType = AccountMenu(option);
+                            if (AccountType != 0){
+                                if (AccountType == 1) {
+                                    index = ChooseAnAccount(MyCustomer.SavingsList, "Savings","Delete"); 
+                                    if (index != 0) {
+                                        MyCustomer.DeleteSavingsAccount(index);
+                                    }
+                                }
+                                else if (AccountType == 2) {
+                                    index = ChooseAnAccount(MyCustomer.CheckingList, "Checking", "Delete"); 
+                                    if (index != 0) {
+                                        MyCustomer.DeleteCheckingAccount(index);
+                                    }
+                                } 
+                                else if (AccountType == 3) {
+                                    index = ChooseAnAccount(MyCustomer.MutualFundList, "Mutual Fund", "Delete");
+                                    if (index != 0) {
+                                        MyCustomer.DeleteMutualFundAccount(index);
+                                    }
+                                }
+                            }
+                            break;                           
+                    case 3: //Make a deposit
                             AccountType = AccountMenu(option);
                             if (AccountType != 0){
                                 if (AccountType == 1) {
@@ -179,7 +239,7 @@ namespace BigBank
                                 }
                             }
                             break;
-                    case 3: //Withdraw Funds
+                    case 4: //Withdraw Funds
                             AccountType = AccountMenu(option);
                             if (AccountType != 0){
                                 if (AccountType == 1) {
@@ -293,10 +353,13 @@ namespace BigBank
             int intUserInput = 0;
             bool check = true;
             string myOption;
+            int MenuItems = 0;
 
             if (option == 1)
                 myOption = "Adding an Account";
             else if (option == 2)
+                myOption = "Deleting an Account";
+            else if (option == 3)
                 myOption = "Making a Deposit";
             else 
                 myOption = "Withdrawing Funds";
@@ -309,17 +372,18 @@ namespace BigBank
             Console.WriteLine("\t\t2 - Checking");
             Console.WriteLine("\t\t3 - Mutual Fund");
             Console.WriteLine("\t\t0 - Quit");
+            MenuItems = 3;
 
             while (check) {
                 UserInput = Console.ReadLine();
                 if(int.TryParse(UserInput, out intUserInput)) {
-                    if (intUserInput >= 0 && intUserInput <4)
+                    if (intUserInput >= 0 && intUserInput <= MenuItems)
                         check = false;
                     else
-                        Console.WriteLine("Please enter a Valid input 0-3");
+                        Console.WriteLine("Please enter a Valid input 0-" + MenuItems);
                 } 
                 else
-                    Console.WriteLine("Please enter a Valid input 0-3");
+                    Console.WriteLine("Please enter a Valid input 0-" + MenuItems);
             }
             return intUserInput;
         }
@@ -328,6 +392,7 @@ namespace BigBank
             string UserInput = "";
             int intUserInput = 0;
             bool check = true;
+            int MenuItems = 0;
 
             Console.Clear();
             Console.WriteLine("\n\n");
@@ -337,22 +402,24 @@ namespace BigBank
 
             Console.WriteLine("\n\tWhat would you like to do today?");
             Console.WriteLine("\n\t\t1 - Create an account");
-            Console.WriteLine("\t\t2 - Make a deposit");
-            Console.WriteLine("\t\t3 - Withdraw Funds");
+            Console.WriteLine("\t\t2 - Delete an account");
+            Console.WriteLine("\t\t3 - Make a deposit");
+            Console.WriteLine("\t\t4 - Withdraw Funds");
             Console.WriteLine("\t\t0 - Quit");
+            MenuItems = 4;
 
 
 
             while (check) {
                 UserInput = Console.ReadLine();
                 if(int.TryParse(UserInput, out intUserInput)) {
-                    if (intUserInput >= 0 && intUserInput <4)
+                    if (intUserInput >= 0 && intUserInput <= MenuItems)
                         check = false;
                     else
-                        Console.WriteLine("Please enter a Valid input 0-3");
+                        Console.WriteLine("Please enter a Valid input 0-" + MenuItems);
                 } 
                 else
-                    Console.WriteLine("Please enter a Valid input 0-3");
+                    Console.WriteLine("Please enter a Valid input 0-" + MenuItems);
             }
             return intUserInput;
         }
