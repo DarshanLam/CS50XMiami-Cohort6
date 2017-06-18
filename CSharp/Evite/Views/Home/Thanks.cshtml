@@ -1,0 +1,12 @@
+<p>
+    
+    @if (Model.WillAttend == true) {
+        <h1>Thank you, @Model.Name!</h1>
+        @:It's great that you're coming. The RED BULL is on ICE!
+    } else {
+        <h1>We will Miss you, @Model.Name!</h1>
+        @:NO GUTS, NO GLORY, but thanks for letting us know.
+    }
+</p>
+<!--<p>Click <a asp-action="ListResponses">here</a> to see who is coming.</p>-->
+Click <a class="nav-link" asp-action="ListResponses">here</a> to see who is coming.
